@@ -245,22 +245,22 @@ class TelaCadastroAlunos(ctk.CTkFrame):
 
         # Métrica
         metric = ctk.CTkFrame(panel, fg_color=self.COR["card"],
-                               border_width=1, border_color=self.COR["borda"],
-                               corner_radius=12, height=70)
+                              border_width=1, border_color=self.COR["borda"],
+                              corner_radius=12, height=70)
         metric.grid(row=0, column=0, sticky="ew", pady=(0, 14))
         metric.pack_propagate(False)
         ctk.CTkLabel(metric, text="🎓  Total de Alunos Matriculados:",
                      font=ctk.CTkFont(size=13, weight="bold"),
                      text_color=self.COR["suave"]).pack(side="left", padx=20)
         self.lbl_total = ctk.CTkLabel(metric, text="—",
-                                       font=ctk.CTkFont(size=28, weight="bold"),
-                                       text_color=self.COR["azul"])
+                                      font=ctk.CTkFont(size=28, weight="bold"),
+                                      text_color=self.COR["azul"])
         self.lbl_total.pack(side="right", padx=20)
 
         # Card tabela
         tcard = ctk.CTkFrame(panel, fg_color=self.COR["card"],
-                              border_width=1, border_color=self.COR["borda"],
-                              corner_radius=14)
+                             border_width=1, border_color=self.COR["borda"],
+                             corner_radius=14)
         tcard.grid(row=1, column=0, sticky="nsew")
         tcard.grid_rowconfigure(1, weight=1)
         tcard.grid_columnconfigure(0, weight=1)
@@ -397,13 +397,7 @@ class TelaCadastroAlunos(ctk.CTkFrame):
                              text_color=self.COR["texto"],
                              anchor="w").pack(side="left", padx=12, fill="x", expand=True)
 
-                # CPF
-                ctk.CTkLabel(linha, text=str(cpf),
-                             font=ctk.CTkFont(size=12),
-                             text_color=self.COR["suave"],
-                             width=120, anchor="w").pack(side="right", padx=10)
-
-                # Tag turma
+                # Tag turma empacotado primeiro no side="right" para ficar no extremo direito, alinhando com cabeçalho
                 tag = ctk.CTkLabel(
                     linha, text=f"  {turma}  ",
                     font=ctk.CTkFont(size=11, weight="bold"),
@@ -411,6 +405,13 @@ class TelaCadastroAlunos(ctk.CTkFrame):
                     text_color=self.COR["tag_azul_txt"],
                     corner_radius=6, width=65, height=24)
                 tag.pack(side="right", padx=10)
+
+                # CPF empacotado logo depois para ficar ao lado esquerdo da Turma
+                ctk.CTkLabel(linha, text=str(cpf),
+                             font=ctk.CTkFont(size=12),
+                             text_color=self.COR["suave"],
+                             width=120, anchor="w").pack(side="right", padx=10)
+
 
         except mysql.connector.Error as e:
             print(f"[tela_alunos] Erro tabela: {e}")
@@ -774,7 +775,7 @@ class TelaCadastroAlunos(ctk.CTkFrame):
 
 if __name__ == "__main__":
     app = ctk.CTk()
-    app.title("Alunos – Sistema Univap")
+    app.title("Alunos - Sistema Univap")
     app.geometry("1200x700")
     TelaCadastroAlunos(app).pack(fill="both", expand=True)
     app.mainloop()
